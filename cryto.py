@@ -4,6 +4,9 @@ from telegram import Bot
 import asyncio
 import time
 import json
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 
 # Retrieve API keys from environment variables
 bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -55,8 +58,13 @@ def track_KID():
 
 # Send Telegram message
 async def send_telegram_message(message):
+    logging.info(f"Sending message to Telegram: {message}")
     bot = Bot(token=bot_token)
-    await bot.send_message(chat_id=chat_id, text=message)
+    try:
+        await bot.send_message(chat_id=chat_id, text=message)
+        logging.info("Message sent successfully.")
+    except Exception as e:
+        logging.error(f"Failed to send message: {e}")
 
 # Run the script
 track_KID()
