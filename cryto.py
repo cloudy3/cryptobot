@@ -47,12 +47,12 @@ def track_KID():
     kid_price = kid_price[:8]
 
     # Determine the alert condition
-    if float(kid_price) < 0.00065:
-        message_body = f"KID is below 0.00065, current price: {kid_price}"
+    if float(kid_price) < 0.0013:
+        message_body = f"KID is below 0.0013, current price: {kid_price}"
         save_last_alert_time(current_time)  # Update last alert time
         asyncio.run(send_telegram_message(message_body))
-    elif float(kid_price) > 0.0009:
-        message_body = f"KID is above 0.0009, current price: {kid_price}"
+    elif float(kid_price) > 0.002:
+        message_body = f"KID is above 0.002, current price: {kid_price}"
         save_last_alert_time(current_time)  # Update last alert time
         asyncio.run(send_telegram_message(message_body))
 
