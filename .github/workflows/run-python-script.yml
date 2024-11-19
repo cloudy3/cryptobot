@@ -1,4 +1,4 @@
-name: Run Python Script Every 5 Minutes
+name: Track Crypto Price and Send Alerts
 
 on:
   schedule:
@@ -8,21 +8,39 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
-        uses: actions/checkout@v3 # Updated to v3
+        uses: actions/checkout@v4
 
+      # Step 2: Restore the cooldown file using GitHub Artifacts
+      - name: Restore cooldown file
+        uses: actions/download-artifact@v3
+        with:
+          name: cooldown-file
+          path: .
+
+      # Step 3: Set up Python with the latest version
       - name: Set up Python
-        uses: actions/setup-python@v4 # Updated to v4
+        uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
+      # Step 4: Install Python dependencies
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Run the Python script
+      # Step 5: Run the Python script
+      - name: Run the Crypto Price Tracker
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          python cryto.py
+        run: python crypto.py
+
+      # Step 6: Save the cooldown file using GitHub Artifacts
+      - name: Save cooldown file
+        if: success()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cooldown-file
+          path: last_alert_time.json
