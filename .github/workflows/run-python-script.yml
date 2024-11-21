@@ -3,6 +3,9 @@ name: Track Crypto Price and Send Alerts
 on:
   schedule:
     - cron: "*/5 * * * *" # Runs every 5 minutes
+  push:
+    branches:
+      - main # Trigger on commits to the main branch (adjust if your branch is different)
 
 jobs:
   run-script:
@@ -12,16 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Attempt to restore cooldown file
+      # Step 2: Debug workspace to check file structure
+      - name: Debug workspace
+        run: ls -R
+        shell: bash
+
+      # Step 3: Attempt to restore cooldown file
       - name: Restore cooldown file
         id: download-artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: cooldown-file
           path: .
         continue-on-error: true # Allow workflow to continue if the artifact doesn't exist
 
-      # Step 3: Create an empty cooldown file if not restored
+      # Step 4: Create an empty cooldown file if missing
       - name: Create empty cooldown file if missing
         run: |
           if [ ! -f last_alert_time.json ]; then
@@ -31,28 +39,28 @@ jobs:
             echo "Cooldown file restored successfully."
           fi
 
-      # Step 4: Set up Python with the latest version
+      # Step 5: Set up Python with the latest version
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.x"
 
-      # Step 5: Install Python dependencies
+      # Step 6: Install Python dependencies
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      # Step 6: Run the Python script
+      # Step 7: Run the Crypto Price Tracker script
       - name: Run the Crypto Price Tracker
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python crypto.py
+        run: python ./crypto.py
 
-      # Step 7: Save the cooldown file as an artifact
+      # Step 8: Save cooldown file as an artifact
       - name: Save cooldown file
         if: success()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cooldown-file
           path: last_alert_time.json
