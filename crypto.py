@@ -32,12 +32,12 @@ def track_crypto():
     ruri_price = response.json()["data"]["attributes"]["token_prices"]["DDij7Dp8updt3XSCzeHCaAoDoFTSE5Y27i2EQ9qjMQtr"]
     ruri_price = ruri_price[:8]
 
-    if float(ruri_price) < 0.004:
-        message_body = f"Ruri is below 0.004, current price: {ruri_price}"
+    if float(ruri_price) < 0.005:
+        message_body = f"Ruri is below 0.005, current price: {ruri_price}"
         asyncio.run(send_telegram_message(message_body))
 
-    if float(ruri_price) > 0.008:
-        message_body = f"Ruri is above 0.008, current price: {ruri_price}"
+    if float(ruri_price) > 0.012:
+        message_body = f"Ruri is above 0.012, current price: {ruri_price}"
         asyncio.run(send_telegram_message(message_body))
 
     # Track $PONKE price
@@ -47,12 +47,23 @@ def track_crypto():
     ponke_price = response.json()["data"]["attributes"]["token_prices"]["5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"]
     ponke_price = ponke_price[:6]
 
-    if float(ponke_price) < 0.5:
-        message_body = f"PONKE is less than 0.5, current price: {ponke_price}"
+    if float(ponke_price) < 0.51:
+        message_body = f"PONKE is less than 0.51, current price: {ponke_price}"
         asyncio.run(send_telegram_message(message_body))
 
     if float(ponke_price) > 0.7:
         message_body = f"PONKE is above 0.7, current price: {ponke_price}"
+        asyncio.run(send_telegram_message(message_body))
+
+    # Track $BARSIK price
+    response = requests.get(
+        "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/7ZqzGzTNg5tjK1CHTBdGFHyKjBtXdfvAobuGgdt4pump"
+    )
+    barsik_price = response.json()["data"]["attributes"]["token_prices"]["7ZqzGzTNg5tjK1CHTBdGFHyKjBtXdfvAobuGgdt4pump"]
+    barsik_price = barsik_price[:6]
+
+    if float(barsik_price) > 0.042:
+        message_body = f"BARSIK is above 0.042, current price: {barsik_price}"
         asyncio.run(send_telegram_message(message_body))
 
 # Send Telegram message

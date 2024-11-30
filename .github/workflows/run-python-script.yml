@@ -2,7 +2,7 @@ name: Run Crypto Price Tracker
 
 on:
   schedule:
-    - cron: "*/8 * * * *" # Runs every 8 minutes
+    - cron: "*/10 * * * *" # Runs every 10 minutes
 
 jobs:
   run-script:
