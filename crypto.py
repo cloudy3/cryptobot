@@ -41,19 +41,19 @@ def track_crypto():
     #     asyncio.run(send_telegram_message(message_body))
 
     # # Track $PONKE price
-    # response = requests.get(
-    #     "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"
-    # )
-    # ponke_price = response.json()["data"]["attributes"]["token_prices"]["5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"]
-    # ponke_price = ponke_price[:6]
+    response = requests.get(
+        "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"
+    )
+    ponke_price = response.json()["data"]["attributes"]["token_prices"]["5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"]
+    ponke_price = ponke_price[:6]
 
-    # if float(ponke_price) < 0.51:
-    #     message_body = f"PONKE is less than 0.51, current price: {ponke_price}"
-    #     asyncio.run(send_telegram_message(message_body))
+    if float(ponke_price) < 0.51:
+        message_body = f"PONKE is less than 0.51, current price: {ponke_price}"
+        asyncio.run(send_telegram_message(message_body))
 
-    # if float(ponke_price) > 0.7:
-    #     message_body = f"PONKE is above 0.7, current price: {ponke_price}"
-    #     asyncio.run(send_telegram_message(message_body))
+    if float(ponke_price) > 0.7:
+        message_body = f"PONKE is above 0.7, current price: {ponke_price}"
+        asyncio.run(send_telegram_message(message_body))
 
     # Track $RUDOLPH price
     response = requests.get(
@@ -64,28 +64,6 @@ def track_crypto():
 
     if float(rudolph_price) > 0.003:
         message_body = f"RUDOLPH is above 0.003, current price: {rudolph_price}"
-        asyncio.run(send_telegram_message(message_body))\
-
-    # Track $GINGY price
-    response = requests.get(
-        "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/7JRAtm3hGnF4iEeRJdcxBtB5zovzkcd2tgpw6Ns1pump"
-    )
-    gingy_price = response.json()["data"]["attributes"]["token_prices"]["7JRAtm3hGnF4iEeRJdcxBtB5zovzkcd2tgpw6Ns1pump"]
-    gingy_price = gingy_price[:7]
-
-    if float(gingy_price) > 0.0009:
-        message_body = f"GINGY is above 0.0009, current price: {gingy_price}"
-        asyncio.run(send_telegram_message(message_body))
-
-    # Track $Aletheia price
-    response = requests.get(
-        "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/6Xx8p2WmY1Uk2GD35uxhEyuniNrVEeSu3CUThb8Upump"
-    )
-    aletheia_price = response.json()["data"]["attributes"]["token_prices"]["6Xx8p2WmY1Uk2GD35uxhEyuniNrVEeSu3CUThb8Upump"]
-    aletheia_price = aletheia_price[:8]
-
-    if float(aletheia_price) > 0.00123:
-        message_body = f"Aletheia is above 0.00123, current price: {aletheia_price}"
         asyncio.run(send_telegram_message(message_body))\
 
     # Track $OPUS price
