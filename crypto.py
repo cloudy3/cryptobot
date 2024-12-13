@@ -21,8 +21,8 @@ def track_crypto():
     #     message_body = f"KID is below 0.000415, current price: {kid_price}"
     #     last_alert_time = current_time  # Update last alert time
     #     asyncio.run(send_telegram_message(message_body))
-    if float(kid_price) > 0.0007:
-        message_body = f"KID is above 0.0007, current price: {kid_price}"
+    if float(kid_price) > 0.00036:
+        message_body = f"KID is above 0.00036, current price: {kid_price}"
         asyncio.run(send_telegram_message(message_body))
 
     # Track $PONKE price
@@ -32,12 +32,12 @@ def track_crypto():
     ponke_price = response.json()["data"]["attributes"]["token_prices"]["5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"]
     ponke_price = ponke_price[:6]
 
-    if float(ponke_price) < 0.44:
-        message_body = f"PONKE is less than 0.44, current price: {ponke_price}"
+    if float(ponke_price) < 0.45:
+        message_body = f"PONKE is less than 0.45, current price: {ponke_price}"
         asyncio.run(send_telegram_message(message_body))
 
-    if float(ponke_price) > 0.6:
-        message_body = f"PONKE is above 0.6, current price: {ponke_price}"
+    if float(ponke_price) > 0.57:
+        message_body = f"PONKE is above 0.57, current price: {ponke_price}"
         asyncio.run(send_telegram_message(message_body))
 
 # Send Telegram message
