@@ -30,10 +30,10 @@ def track_crypto():
         "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"
     )
     ponke_price = response.json()["data"]["attributes"]["token_prices"]["5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC"]
-    ponke_price = ponke_price[:6]
+    ponke_price = ponke_price[:5]
 
-    if float(ponke_price) < 0.45:
-        message_body = f"PONKE is less than 0.45, current price: {ponke_price}"
+    if float(ponke_price) < 0.42:
+        message_body = f"PONKE is less than 0.42, current price: {ponke_price}"
         asyncio.run(send_telegram_message(message_body))
 
     if float(ponke_price) > 0.57:
