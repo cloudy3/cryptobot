@@ -10,20 +10,20 @@ chat_id = os.getenv('TELEGRAM_CHAT_ID')
 # Retrieve price of a specific crypto
 def track_crypto():
     # Track $KID price
-    response = requests.get(
-        "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/EB8uJb7PfZhEGgLxzTURemxoXMHAEvAnbNi48JQhpump"
-    )
-    kid_price = response.json()["data"]["attributes"]["token_prices"]["EB8uJb7PfZhEGgLxzTURemxoXMHAEvAnbNi48JQhpump"]
-    kid_price = kid_price[:8]
+    # response = requests.get(
+    #     "https://api.geckoterminal.com/api/v2/simple/networks/solana/token_price/EB8uJb7PfZhEGgLxzTURemxoXMHAEvAnbNi48JQhpump"
+    # )
+    # kid_price = response.json()["data"]["attributes"]["token_prices"]["EB8uJb7PfZhEGgLxzTURemxoXMHAEvAnbNi48JQhpump"]
+    # kid_price = kid_price[:8]
 
     # Determine the alert condition
     # if float(kid_price) < 0.000415:
     #     message_body = f"KID is below 0.000415, current price: {kid_price}"
     #     last_alert_time = current_time  # Update last alert time
     #     asyncio.run(send_telegram_message(message_body))
-    if float(kid_price) > 0.00036:
-        message_body = f"KID is above 0.00036, current price: {kid_price}"
-        asyncio.run(send_telegram_message(message_body))
+    # if float(kid_price) > 0.00036:
+    #     message_body = f"KID is above 0.00036, current price: {kid_price}"
+    #     asyncio.run(send_telegram_message(message_body))
 
     # Track $PONKE price
     response = requests.get(
@@ -36,8 +36,8 @@ def track_crypto():
     #     message_body = f"PONKE is less than 0.42, current price: {ponke_price}"
     #     asyncio.run(send_telegram_message(message_body))
 
-    if float(ponke_price) > 0.57:
-        message_body = f"PONKE is above 0.57, current price: {ponke_price}"
+    if float(ponke_price) > 0.53:
+        message_body = f"PONKE is above 0.53, current price: {ponke_price}"
         asyncio.run(send_telegram_message(message_body))
 
 # Send Telegram message
